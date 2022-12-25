@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,9 +13,7 @@ public class Main {
             list.add(sc.nextInt());
         }
 
-        int max = list.stream()
-                .mapToInt(Integer::intValue)
-                .max().getAsInt();
+        int max = Collections.max(list);
 
         int idx = list.indexOf(max);
 
