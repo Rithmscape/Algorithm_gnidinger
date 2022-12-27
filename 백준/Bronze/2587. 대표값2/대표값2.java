@@ -15,7 +15,6 @@ public class Main {
         }
 
         int ave = (int) list.stream()
-                .sorted()
                 .mapToInt(Integer::intValue)
                 .average()
                 .getAsDouble();
