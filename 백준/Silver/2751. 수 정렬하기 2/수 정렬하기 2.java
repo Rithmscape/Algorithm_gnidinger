@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,12 +18,10 @@ public class Main {
             list.add(Integer.parseInt(br.readLine()));
         }
 
-        List<Integer> result = list.stream()
-                .sorted()
-                .collect(Collectors.toList());
+        Collections.sort(list);
 
         for(int i = 0; i < n; i++) {
-            bw.write(result.get(i) + "\n");
+            bw.write(list.get(i) + "\n");
         }
 
         bw.flush();
