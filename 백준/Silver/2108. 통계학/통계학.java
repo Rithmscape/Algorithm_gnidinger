@@ -28,12 +28,7 @@ public class Main {
                 .boxed()
                 .collect(Collectors.summarizingInt(a -> a));
 
-        int median = Arrays.stream(result)
-                .map(a -> a - 4000)
-                .boxed()
-                .sorted()
-                .collect(Collectors.toList())
-                .get(n / 2);
+        int median = result[n / 2] - 4000;
 
         bw.write(Math.round(stat.getAverage()) + "\n");
         bw.write(median + "\n");
@@ -46,7 +41,7 @@ public class Main {
 
     public static void countingSortImpl(int[] target) {
 
-        int[] counting = new int[Arrays.stream(target).max().getAsInt() + 2];
+        int[] counting = new int[Arrays.stream(target).max().getAsInt() + 1];
         result = new int[target.length];
 
         for (int i = 0; i < target.length; i++) { // Counting
