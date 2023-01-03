@@ -26,7 +26,7 @@ public class Main {
         int num = 0;
 
         for (int i : sortedList) {
-            if (!map.containsKey(i)) map.put(i,num);
+            map.put(i,num);
             num++;
         }
 
