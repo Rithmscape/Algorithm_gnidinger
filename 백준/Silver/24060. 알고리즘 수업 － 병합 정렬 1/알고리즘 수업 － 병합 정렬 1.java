@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -26,7 +25,7 @@ public class Main {
         System.out.println(-1);
     }
 
-    public static void mergeSortImpl(int[] arr, int start, int end) {        //배열 A를 클래스 멤버 변수로
+    public static void mergeSortImpl(int[] arr, int start, int end) {
 
         if (start == end) return; // 끝까지 쪼개면 리턴
 
@@ -35,30 +34,30 @@ public class Main {
         mergeSortImpl(arr, start, mid); // 왼쪽 절반 재귀호출
         mergeSortImpl(arr, mid + 1, end); // 오른쪽 절반 재귀호출
 
-        merge(arr, start, mid, end);
+        mergeSort(arr, start, mid, end);
     }
 
-    private static void merge(int[] arr, int p, int q, int r) {
-        int i = p;
-        int j = q + 1;
-        int t = 0;                //배열은 0부터 시작하기에 0으로 초기화
-        while (i <= q && j <= r) {
-            if (arr[i] <= arr[j])
-                temp[t++] = arr[i++];
+    private static void mergeSort(int[] arr, int start, int mid, int end) {
+        int left = start;
+        int right = mid + 1;
+        int idx = left;
+        while (left <= mid && right <= end) {
+            if (arr[left] <= arr[right])
+                temp[idx++] = arr[left++];
             else
-                temp[t++] = arr[j++];
+                temp[idx++] = arr[right++];
         }
-        while (i <= q)
-            temp[t++] = arr[i++];
-        while (j <= r)
-            temp[t++] = arr[j++];
-        i = p;
-        t = 0;                //바로 위 주석과 같은 이유
-        while (i <= r) {
-            arr[i++] = temp[t++];
+        while (left <= mid)
+            temp[idx++] = arr[left++];
+        while (right <= end)
+            temp[idx++] = arr[right++];
+        left = start;
+        idx = left;
+        while (left <= end) {
+            arr[left++] = temp[idx++];
             cnt++;
             if (cnt == k) {
-                System.out.println(arr[i - 1]);
+                System.out.println(arr[left - 1]);
                 System.exit(0);
             }
         }
