@@ -37,7 +37,7 @@ public class Main {
 
             if (rm == 0 && d == 0) { // 원의 중심이 같고 반지름도 같은 경우(일치)
                 result.add(-1);
-            } else if (rp < d || d < rm || (d == 0 && rm != 0)) { // 원이 만나지 않는 경우
+            } else if (rp < d || d < rm) { // 원이 만나지 않는 경우
                 result.add(0);
             } else if (rm == d || rp == d) { // 원이 내접, 외접할 경우
                 result.add(1);
