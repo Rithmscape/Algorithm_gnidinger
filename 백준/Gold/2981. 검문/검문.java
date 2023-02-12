@@ -23,7 +23,7 @@ public class Main {
 		int result = list.get(1) - list.get(0);
 
 		for (int i = 2; i < n; i++) {
-			result = findGcd(result, list.get(i) - list.get(0));
+			result = gcd(result, list.get(i) - list.get(i - 1));
 		}
 
 		StringBuilder stringBuilder = new StringBuilder();
@@ -36,7 +36,7 @@ public class Main {
 		System.out.println(stringBuilder.toString());
 	}
 
-	static int findGcd(int a, int b) {
+	private static int gcd(int a, int b) {
 		while(b != 0) {
 			int r = a % b;
 			a = b;
