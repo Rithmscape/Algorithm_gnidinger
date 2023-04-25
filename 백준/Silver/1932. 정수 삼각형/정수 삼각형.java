@@ -6,50 +6,35 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	private static int[] memo;
-
 	public static void main(String[] args) throws IOException {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		int n = Integer.parseInt(br.readLine());
-
 		int[][] arr = new int[n][n];
-		memo = new int[n];
+		int[][] memo = new int[n][n];
 
 		for (int i = 0; i < n; i++) {
-
 			StringTokenizer st = new StringTokenizer(br.readLine());
-
 			for (int j = 0; j <= i; j++) {
-
 				arr[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
 
-		bottomUp(arr);
+		memo[0][0] = arr[0][0];
 
-		System.out.println(Arrays.stream(memo).max().getAsInt());
-	}
-
-	private static void bottomUp(int[][] arr) {
-
-		memo[0] = arr[0][0];
-		
-		for (int i = 1; i < arr.length; i++) {
-			int[] temp = new int[arr.length];
-			for (int j = 0; j < arr.length; j++) {
-				temp[j] = memo[j];
-			}
+		for (int i = 1; i < n; i++) {
 			for (int j = 0; j <= i; j++) {
 				if (j == 0) {
-					memo[j] = temp[0] + arr[i][0];
+					memo[i][j] = memo[i - 1][j] + arr[i][j];
 				} else if (j == i) {
-					memo[j] = temp[j - 1] + arr[i][i];
+					memo[i][j] = memo[i - 1][j - 1] + arr[i][j];
 				} else {
-					memo[j] = Math.max(temp[j - 1], temp[j]) + arr[i][j];
+					memo[i][j] = Math.max(memo[i - 1][j], memo[i - 1][j - 1]) + arr[i][j];
 				}
 			}
 		}
+
+		System.out.println(Arrays.stream(memo[n - 1]).max().getAsInt());
 	}
 }

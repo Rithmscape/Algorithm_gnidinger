@@ -1,56 +1,50 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+	static char[][] result;
 
-        int n = sc.nextInt();
+	public static void main(String[] args) throws IOException {
 
-        char[][] arr = new char[n][n];
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 
-        starSquare(arr, 0, 0, n, false);
+		int n = Integer.parseInt(br.readLine());
 
-        StringBuilder sb = new StringBuilder();
+		result = new char[n][n];
+		for (char[] row : result) {
+			Arrays.fill(row, ' ');
+		}
 
-        for (int i = 0; i < n; i ++) {
+		star(n, 0, 0);
 
-            for (int j = 0; j < n; j++) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				sb.append(result[i][j]);
+			}
+			sb.append('\n');
+		}
+		System.out.println(sb);
+	}
 
-                sb.append(arr[i][j]);
-            }
-            sb.append('\n');
-        }
-        System.out.println(sb);
-    }
+	public static void star(int n, int x, int y) {
 
-    static void starSquare(char[][] arr, int x, int y, int n, boolean isEmpty) {
+		if (n == 1) {
+			result[y][x] = '*';
+			return;
+		}
 
-        if (isEmpty) {
-            for (int i = x; i < x + n; i++) {
-                for (int j = y; j < y + n; j++) {
-                    arr[i][j] = ' ';
-                }
-            }
-            return;
-        }
-
-        if (n == 1) {
-            arr[x][y] = '*';
-            return;
-        }
-
-        int size = n / 3;
-        int count = 0;
-        for (int i = x; i < x + n; i += size) {
-            for (int j = y; j < y + n; j += size) {
-                count++;
-                if (count == 5) { // 공백 칸일 경우
-                    starSquare(arr, i, j, size, true);
-                } else {
-                    starSquare(arr, i, j, size, false);
-                }
-            }
-        }
-    }
+		int m = n / 3;
+		for (int dy = 0; dy < 3; dy++) {
+			for (int dx = 0; dx < 3; dx++) {
+				if (dx == 1 && dy == 1) {
+					continue;
+				}
+				star(m, x + m * dx, y + m * dy);
+			}
+		}
+	}
 }
