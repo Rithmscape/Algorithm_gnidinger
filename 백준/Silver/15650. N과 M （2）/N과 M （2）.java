@@ -34,11 +34,11 @@ public class Main {
 		}
 
 		for (int i = start; i <= n; i++) {
-			if (!isVisited[i - 1]) {
-				isVisited[i - 1] = true;
+			if (!isVisited[i]) {
+				isVisited[i] = true;
 				arr[depth] = i;
-				dfs(i + 1, depth + 1);
-				isVisited[i - 1] = false;
+				dfs(i, depth + 1);
+				isVisited[i] = false;
 			}
 		}
 	}

@@ -1,45 +1,45 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+	static int n;
+	static int m;
+	static int[] arr;
+	static boolean[] isVisited;
+	static StringBuilder sb = new StringBuilder();
 
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        int[] arr = new int[n]; // 순열을 만들 배열
+	public static void main(String[] args) throws IOException {
 
-        for (int i = 0; i < n; i++){
-            arr[i] = i + 1;
-        }
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int[] output = new int[n]; // 순열을 저장하기 위한 배열
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+		arr = new int[m];
+		isVisited = new boolean[n + 1];
 
-        per(arr, output, 0, n, m);
+		dfs(0);
 
-        System.out.println(sb);
-    }
+		System.out.println(sb);
 
-    static StringBuilder sb = new StringBuilder();
-    static int cnt = 0;
-    //순서를 지키면서 n 개중에서 r 개를 뽑는 경우
-    static void per(int[] arr, int[] output, int depth, int n, int r) {
-        if (depth == r) { // base condition
-            cnt++;
-            print(output, r); //순열 출력을 위한 print 함수
-            return;
-        }
+	}
 
-        for(int i = 0; i < n; i++) {
-            output[depth] = arr[i];
-            per(arr, output, depth + 1, n, r); // 재귀함수 호출
-        }
-    }
+	private static void dfs(int depth) {
 
-    static void print(int[] arr, int r) { // 배열 출력을 위한 메서드
-        for(int i = 0; i < r; i++){
-            sb.append(arr[i]).append(' ');
-        }
-        sb.append('\n');
-    }
+		if (depth == m) {
+			for (int num : arr) {
+				sb.append(num).append(' ');
+			}
+			sb.append('\n');
+			return;
+		}
+
+		for (int i = 1; i <= n; i++) {
+				arr[depth] = i;
+				dfs(depth + 1);
+		}
+	}
 }

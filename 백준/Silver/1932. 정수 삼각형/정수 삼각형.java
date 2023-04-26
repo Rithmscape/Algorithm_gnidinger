@@ -11,6 +11,7 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		int n = Integer.parseInt(br.readLine());
+
 		int[][] arr = new int[n][n];
 		int[][] memo = new int[n][n];
 
@@ -23,18 +24,17 @@ public class Main {
 
 		memo[0][0] = arr[0][0];
 
-		for (int i = 1; i < n; i++) {
+		for (int i = 1; i < n; i ++) {
 			for (int j = 0; j <= i; j++) {
 				if (j == 0) {
 					memo[i][j] = memo[i - 1][j] + arr[i][j];
-				} else if (j == i) {
+ 				} else if (j == i) {
 					memo[i][j] = memo[i - 1][j - 1] + arr[i][j];
 				} else {
 					memo[i][j] = Math.max(memo[i - 1][j], memo[i - 1][j - 1]) + arr[i][j];
 				}
 			}
 		}
-
 		System.out.println(Arrays.stream(memo[n - 1]).max().getAsInt());
 	}
 }
