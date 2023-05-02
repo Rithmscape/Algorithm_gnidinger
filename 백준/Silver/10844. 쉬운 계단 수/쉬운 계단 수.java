@@ -1,50 +1,42 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
 
-    private static long[][] memo;
-    private static long result = 0;
+	public static void main(String[] args) throws IOException {
 
-    public static void main(String[] args) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        Scanner sc = new Scanner(System.in);
+		int n = Integer.parseInt(br.readLine());
+		int mod = 1_000_000_000;
+		int result = 0;
+		int[][] memo = new int[n + 1][10];
 
-        int n = sc.nextInt();
-        memo = new long[n + 1][10];
+		for (int i = 1; i < 10; i++) {
+			memo[1][i] = 1;
+		}
 
-        for (int i = 1; i < 10; i++) {
-            memo[1][i] = 1;
-        }
+		for (int i = 2; i <= n; i++) {
+			for (int j = 0; j <= 9; j++) {
 
-        bottomUp(n);
+				if (j == 0) {
+					memo[i][0] = memo[i - 1][1] % mod;
+				}
 
-        for (int i = 0; i < 10; i++) {
-            result += memo[n][i];
-        }
+				else if (j == 9) {
+					memo[i][9] = memo[i - 1][8] % mod;
+				}
 
-        System.out.println(result % 1_000_000_000);
-
-    }
-
-    private static void bottomUp(int n) {
-
-
-        for (int i = 2; i < n + 1; i++) {
-
-            for (int j = 0; j < 10; j++) {
-
-                if (j == 0) {
-                    memo[i][0] = memo[i - 1][1] % 1_000_000_000;
-                }
-
-                else if (j == 9) {
-                    memo[i][9] = memo[i - 1][8] % 1_000_000_000;
-                }
-
-                else {
-                    memo[i][j] = (memo[i - 1][j - 1] + memo[i - 1][j + 1]) % 1_000_000_000;
-                }
-            }
-        }
-    }
+				else {
+					memo[i][j] = (memo[i - 1][j - 1] + memo[i - 1][j + 1]) % mod;
+				}
+			}
+		}
+		for (int i = 0; i <= 9; i++) {
+			result = (result + memo[n][i]) % mod;
+		}
+		System.out.println(result);
+	}
 }

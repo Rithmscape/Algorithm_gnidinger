@@ -4,11 +4,9 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-
 	static int n;
 	static int m;
 	static int[] arr;
-	static boolean[] isVisited;
 	static StringBuilder sb = new StringBuilder();
 
 	public static void main(String[] args) throws IOException {
@@ -19,16 +17,13 @@ public class Main {
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
 		arr = new int[m];
-		isVisited = new boolean[n + 1];
 
 		dfs(0);
 
 		System.out.println(sb);
-
 	}
 
 	private static void dfs(int depth) {
-
 		if (depth == m) {
 			for (int num : arr) {
 				sb.append(num).append(' ');
@@ -38,8 +33,8 @@ public class Main {
 		}
 
 		for (int i = 1; i <= n; i++) {
-				arr[depth] = i;
-				dfs(depth + 1);
+			arr[depth] = i;
+			dfs(depth + 1);
 		}
 	}
 }

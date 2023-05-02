@@ -9,6 +9,7 @@ public class Main {
 	static int m;
 	static int[] arr;
 	static boolean[] isVisited;
+	static StringBuilder sb = new StringBuilder();
 
 	public static void main(String[] args) throws IOException {
 
@@ -22,14 +23,15 @@ public class Main {
 
 		dfs(1, 0);
 
+		System.out.println(sb);
 	}
 
 	private static void dfs(int start, int depth) {
 		if (depth == m) {
 			for (int num : arr) {
-				System.out.print(num + " ");
+				sb.append(num).append(' ');
 			}
-			System.out.println();
+			sb.append('\n');
 			return;
 		}
 
