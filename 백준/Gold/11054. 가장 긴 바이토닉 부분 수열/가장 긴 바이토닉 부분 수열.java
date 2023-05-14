@@ -6,16 +6,14 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	static int[] increase;
-	static int[] decrease;
-
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		int n = Integer.parseInt(br.readLine());
 		int[] arr = new int[n];
-		increase = new int[n];
-		decrease = new int[n];
+		int[] increase = new int[n];
+		int[] decrease = new int[n];
+		int result = 1;
 
 		StringTokenizer st = new StringTokenizer(br.readLine());
 
@@ -23,12 +21,10 @@ public class Main {
 			arr[i] = Integer.parseInt(st.nextToken());
 		}
 
-		// increase[0] = 1;
-		// decrease[0] = 1;
 		Arrays.fill(increase, 1);
 		Arrays.fill(decrease, 1);
 
-		for (int i = 1; i < n; i++) {
+		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < i; j++) {
 				if (arr[j] < arr[i]) {
 					increase[i] = Math.max(increase[i], increase[j] + 1);
@@ -36,7 +32,7 @@ public class Main {
 			}
 		}
 
-		for (int i = n - 2; i >= 0; i--) {
+		for (int i = n - 1; i >= 0; i--) {
 			for (int j = n - 1; j > i; j--) {
 				if (arr[j] < arr[i]) {
 					decrease[i] = Math.max(decrease[i], decrease[j] + 1);
@@ -44,12 +40,10 @@ public class Main {
 			}
 		}
 
-		int max = 0;
-
 		for (int i = 0; i < n; i++) {
-			max = Math.max(max, increase[i] + decrease[i] - 1);
+			result = Math.max(result, increase[i] + decrease[i] - 1);
 		}
 
-		System.out.println(max);
+		System.out.println(result);
 	}
 }

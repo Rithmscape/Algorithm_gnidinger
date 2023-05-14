@@ -1,11 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.AbstractMap;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -15,30 +11,25 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		int n = Integer.parseInt(br.readLine());
+		int[] arr = new int[n];
+		int[] memo = new int[n];
+		Arrays.fill(memo, 1);
+		int result = 1;
 
 		StringTokenizer st = new StringTokenizer(br.readLine());
 
-		int[] arr = new int[n + 1];
-
-		for (int i = 1; i <= n; i++) {
+		for (int i = 0; i < n; i++) {
 			arr[i] = Integer.parseInt(st.nextToken());
 		}
 
-		Map<Integer, Integer> integerMap = new HashMap<>();
-		integerMap.put(0, 0);
-
-		for (int i = 1; i <= n; i++) {
-
-			int finalI = i;
-
-			Map.Entry<Integer, Integer> bestEntry = integerMap.entrySet().stream()
-				.filter(integerIntegerEntry -> integerIntegerEntry.getKey() < arr[finalI])
-				.max(Map.Entry.comparingByValue())
-				.orElse(new AbstractMap.SimpleEntry<>(0, 0));
-
-			integerMap.put(arr[finalI], bestEntry.getValue() + 1);
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < i; j++) {
+				if (arr[j] < arr[i] && memo[i] < memo[j] + 1) {
+					memo[i] = memo[j] + 1;
+					result = Math.max(result, memo[i]);
+				}
+			}
 		}
-
-		System.out.println(Collections.max(integerMap.values()));
+		System.out.println(result);
 	}
 }
