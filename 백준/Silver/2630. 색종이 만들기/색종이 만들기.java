@@ -33,17 +33,18 @@ public class Main {
 		if (isSame(row, col, size)) {
 			if (board[row][col] == 0) {
 				white++;
+				return;
 			} else {
 				blue++;
+				return;
 			}
-		} else {
-			int newSize = size / 2;
-
-			quadrant(row, col, newSize);
-			quadrant(row, col + newSize, newSize);
-			quadrant(row + newSize, col, newSize);
-			quadrant(row + newSize, col + newSize, newSize);
 		}
+		int newSize = size / 2;
+
+		quadrant(row, col, newSize);
+		quadrant(row, col + newSize, newSize);
+		quadrant(row + newSize, col, newSize);
+		quadrant(row + newSize, col + newSize, newSize);
 	}
 
 	private static boolean isSame(int row, int col, int size) {
